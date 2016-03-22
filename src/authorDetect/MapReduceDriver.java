@@ -1,4 +1,4 @@
-package ngrams;
+package authorDetect;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
@@ -8,7 +8,7 @@ import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
 import org.apache.hadoop.mapreduce.lib.output.FileOutputFormat;
 
 
-public class Ngram 
+public class MapReduceDriver 
 {
 
 	public static void main(String[] args) throws Exception 
@@ -35,16 +35,16 @@ public class Ngram
 		// Unigrams by author
 		
 		Configuration conf2 = new Configuration();
-		conf2.set("ngramType","unigramAuthor");
-		Job job2 = Job.getInstance(conf2, "unigramAuthor");
+		//conf2.set("ngramType","unigramAuthor");
+		Job job2 = Job.getInstance(conf2);
 		//job2.setNumReduceTasks(numReduceTasks);
-		job2.setJarByClass(Ngram.class);
-		job2.setMapperClass(NgramMapper.class);
-		job2.setCombinerClass(NgramReducer.class);
-		job2.setReducerClass(NgramReducer.class);
+		job2.setJarByClass(MapReduceDriver.class);
+		job2.setMapperClass(FrequencyMapper.class);
+		job2.setCombinerClass(FrequencyReducer.class);
+		job2.setReducerClass(FrequencyReducer.class);
 		job2.setOutputKeyClass(Text.class);
 		job2.setOutputValueClass(Text.class);
-		job2.setInputFormatClass(WholeFileInputFormat.class);
+		//job2.setInputFormatClass(WholeFileInputFormat.class);
 		FileInputFormat.addInputPath(job2, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job2, new Path(args[1] + 2));
 		job2.waitForCompletion(true);
