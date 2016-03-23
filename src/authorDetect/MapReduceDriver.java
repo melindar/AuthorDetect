@@ -13,26 +13,24 @@ public class MapReduceDriver
 
 	public static void main(String[] args) throws Exception 
 	{
-		// Unigrams by date
-		//int numReduceTasks = 20;
+		int numAuthors = 0;
+		// Use this when needing to get numAuthors: 
+		/*Configuration conf = context.getConfiguration();
+		String numAuthorsString = conf.get("numAuthors");
+		int numAuthors =  Integer.parseInt(numAuthorsString);*/
 		
-		/*Configuration conf1 = new Configuration();
-		conf1.set("ngramType","unigramDate");
-		Job job1 = Job.getInstance(conf1, "unigramDate");
-		//job1.setNumReduceTasks(numReduceTasks);
-		job1.setJarByClass(Ngram.class);
-		job1.setMapperClass(NgramMapper.class);
-		job1.setCombinerClass(NgramReducer.class);
-		job1.setReducerClass(NgramReducer.class);
+		// Count the number of Authors
+		
+		Configuration conf1 = new Configuration();
+		Job job1 = Job.getInstance(conf1);
+		job1.setJarByClass(MapReduceDriver.class);
+		job1.setMapperClass(CountAuthorsMapper.class);
+		job1.setReducerClass(CountAuthorsReducer.class);
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(Text.class);
-		job1.setInputFormatClass(WholeFileInputFormat.class);
 		FileInputFormat.addInputPath(job1, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job1, new Path(args[1] + 1));
-		//job1.waitForCompletion(true);
-		System.exit(job1.waitForCompletion(true) ? 0 : 1);*/
-		
-		// Unigrams by author
+		job1.waitForCompletion(true);
 		
 		Configuration conf2 = new Configuration();
 		//conf2.set("ngramType","unigramAuthor");
@@ -52,7 +50,7 @@ public class MapReduceDriver
 		// Bigrams by date
 		
 		/*Configuration conf3 = new Configuration();
-		conf3.set("ngramType","bigramDate");
+		//conf3.set("ngramType","bigramDate");
 		Job job3 = Job.getInstance(conf3, "bigramDate");
 		//job3.setNumReduceTasks(numReduceTasks);
 		job3.setJarByClass(Ngram.class);
@@ -61,7 +59,7 @@ public class MapReduceDriver
 		job3.setReducerClass(NgramReducer.class);
 		job3.setOutputKeyClass(Text.class);
 		job3.setOutputValueClass(Text.class);
-		job3.setInputFormatClass(WholeFileInputFormat.class);
+		//job3.setInputFormatClass(WholeFileInputFormat.class);
 		FileInputFormat.addInputPath(job3, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job3, new Path(args[1] + 3));
 		job3.waitForCompletion(true);
@@ -69,7 +67,7 @@ public class MapReduceDriver
 		// Bigrams by author
 		
 		Configuration conf4 = new Configuration();
-		conf4.set("ngramType","bigramAuthor");
+		//conf4.set("ngramType","bigramAuthor");
 		Job job4 = Job.getInstance(conf4, "bigramAuthor");
 		//job4.setNumReduceTasks(numReduceTasks);
 		job4.setJarByClass(Ngram.class);
@@ -78,7 +76,7 @@ public class MapReduceDriver
 		job4.setReducerClass(NgramReducer.class);
 		job4.setOutputKeyClass(Text.class);
 		job4.setOutputValueClass(Text.class);
-		job4.setInputFormatClass(WholeFileInputFormat.class);
+		//job4.setInputFormatClass(WholeFileInputFormat.class);
 		FileInputFormat.addInputPath(job4, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job4, new Path(args[1] + 4));
 		System.exit(job4.waitForCompletion(true) ? 0 : 1);*/
