@@ -2,6 +2,7 @@ package authorDetect;
 
 import org.apache.hadoop.conf.Configuration;
 import org.apache.hadoop.fs.Path;
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -28,7 +29,7 @@ public class MapReduceDriver
 		job1.setMapperClass(CountAuthorsMapper.class);
 		job1.setReducerClass(CountAuthorsReducer.class);
 		job1.setOutputKeyClass(Text.class);
-		job1.setOutputValueClass(Text.class);
+		job1.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job1, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job1, new Path(args[1] + 1));
 		job1.waitForCompletion(true);
