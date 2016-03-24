@@ -27,14 +27,14 @@ public class Parser
 	}
 
 	
-	public static void main(String[] args)
+	/*public static void main(String[] args)
 	{
 		String file = "Sample";
 		Parser parse = new Parser(file);
 		parse.openFile(file);
 		parse.tokenizeUnigrams();
 		parse.writeTokens();
-	}
+	}*/
 
 	public void openFile(String filename)
 	{

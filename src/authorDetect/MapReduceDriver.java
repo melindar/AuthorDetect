@@ -13,6 +13,7 @@ public class MapReduceDriver
 
 	public static void main(String[] args) throws Exception 
 	{
+		System.out.println("Here.");
 		int numAuthors = 0;
 		// Use this when needing to get numAuthors: 
 		/*Configuration conf = context.getConfiguration();
