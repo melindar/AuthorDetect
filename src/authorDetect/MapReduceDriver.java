@@ -32,7 +32,7 @@ public class MapReduceDriver
 		FileOutputFormat.setOutputPath(job1, new Path(args[1] + 1));
 		job1.waitForCompletion(true);
 		
-		Configuration conf2 = new Configuration();
+		/*Configuration conf2 = new Configuration();
 		//conf2.set("ngramType","unigramAuthor");
 		Job job2 = Job.getInstance(conf2);
 		//job2.setNumReduceTasks(numReduceTasks);
@@ -45,7 +45,7 @@ public class MapReduceDriver
 		//job2.setInputFormatClass(WholeFileInputFormat.class);
 		FileInputFormat.addInputPath(job2, new Path(args[0]));
 		FileOutputFormat.setOutputPath(job2, new Path(args[1] + 2));
-		job2.waitForCompletion(true);
+		job2.waitForCompletion(true);*/
 		
 		// Bigrams by date
 		
