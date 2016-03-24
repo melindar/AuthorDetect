@@ -25,6 +25,7 @@ public class MapReduceDriver
 		
 		Configuration conf1 = new Configuration();
 		Job job1 = Job.getInstance(conf1);
+		job1.setNumReduceTasks(1);
 		job1.setJarByClass(MapReduceDriver.class);
 		job1.setMapperClass(CountAuthorsMapper.class);
 		job1.setReducerClass(CountAuthorsReducer.class);

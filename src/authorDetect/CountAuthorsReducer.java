@@ -14,7 +14,7 @@ public class CountAuthorsReducer extends Reducer<Text,IntWritable,Text,IntWritab
 		  int sum = 0;
 	      for (IntWritable val : values) 
 	      {
-	        sum += val.get();
+	        sum ++; //val.get();
 	      }
 	      result.set(sum);
 	      context.write(key, result);
