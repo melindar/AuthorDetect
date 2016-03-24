@@ -1,28 +1,24 @@
 package authorDetect;
 
 import java.io.IOException;
-import java.util.HashSet;
-
+import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class FrequencyReducer extends Reducer<Text,Text,Text,Text> 
+public class FrequencyReducer extends Reducer<Text,IntWritable,Text,IntWritable> 
 {  
 
-  public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException 
-  {
-	  HashSet<String> unique = new HashSet<String>();
+	IntWritable result = new IntWritable();
 
-	  int matchCount = 0;
-	  for(Text val : values) 
-	  {
-		  matchCount++;
-		  unique.add(val.toString());
-	  }
-	  
-	  int volCount = unique.size();
-	  String prelimResult = matchCount + "\t" + volCount + "\n";
-	  Text result = new Text(prelimResult);
-	  context.write(key, result);
-  }
+	public void reduce(Text key, Iterable<IntWritable> values, Context context) throws IOException, InterruptedException 
+	{
+		int sum = 0;
+		for (IntWritable val : values) 
+		{
+			sum += val.get();
+		}
+		result.set(sum);
+		context.write(key, result);
+	}
+
 }
