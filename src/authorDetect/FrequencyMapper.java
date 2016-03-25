@@ -22,7 +22,6 @@ public class FrequencyMapper extends Mapper<Object, Text, Text, IntWritable>
 		{
 			String word_author = token + "_" + halfLine[0];
 			keyString.set(word_author);
-			//IntWritable one = new IntWritable();
 			context.write(keyString,one);
 		}
 	}

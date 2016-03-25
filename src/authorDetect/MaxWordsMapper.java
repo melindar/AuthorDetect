@@ -14,11 +14,9 @@ public class MaxWordsMapper extends Mapper<Object, Text, Text, Text>
 		String letters = line.substring(0,getLetterIndex(line));
 		String numbers = line.substring(getNumberIndex(line));
 		
-		System.out.println("\n\n\n\n**************************\n" + line + "\n**************************\n\n\n\n");
-		
 		String[] halfLine = letters.split("_");
-		String word = halfLine[0];
-		String author = halfLine[1];
+		String word = halfLine[0].trim();
+		String author = halfLine[1].trim();
 		
 		int count = Integer.parseInt(numbers);
 		String wordVal = word + "=" + count;
