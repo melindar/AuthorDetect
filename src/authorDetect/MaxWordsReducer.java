@@ -3,14 +3,13 @@ package authorDetect;
 import java.io.IOException;
 import java.util.ArrayList;
 
-import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class MaxWordsReducer extends Reducer<Text,Text,Text,DoubleWritable> 
+public class MaxWordsReducer extends Reducer<Text,Text,Text,Text> 
 {  
 
-	DoubleWritable result = new DoubleWritable();
+	Text result = new Text();
 
 	public void reduce(Text key, Iterable<Text> values, Context context) throws IOException, InterruptedException 
 	{
@@ -34,9 +33,9 @@ public class MaxWordsReducer extends Reducer<Text,Text,Text,DoubleWritable>
 			String[] halfLine = line.split("=");
 			String word = halfLine[0];
 			int count = Integer.parseInt( halfLine[1]);
-			Text keystring = new Text(word + "_" + key);
+			Text keystring = new Text(word);
 			double fraction = (double)count / (double)max;
-			result.set(fraction);
+			result.set("@@@" + fraction);
 			context.write(keystring, result);
 		}
 		

@@ -34,7 +34,7 @@ public class TFIDFDriver extends Configured implements Tool
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(Text.class);
 		FileInputFormat.addInputPath(job1, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job1, new Path(args[1] + 1));
+		FileOutputFormat.setOutputPath(job1, new Path(args[1] + "1"));
 		job1.waitForCompletion(true);
 
 		long result = job1.getCounters().findCounter("Result","Result").getValue();
@@ -51,7 +51,7 @@ public class TFIDFDriver extends Configured implements Tool
 		job2.setOutputKeyClass(Text.class);
 		job2.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job2, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job2, new Path(args[1] + 2));
+		FileOutputFormat.setOutputPath(job2, new Path(args[1] + "2"));
 		job2.waitForCompletion(true);
 		
 		
@@ -64,8 +64,8 @@ public class TFIDFDriver extends Configured implements Tool
 		job3.setReducerClass(MaxWordsReducer.class);
 		job3.setOutputKeyClass(Text.class);
 		job3.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job3, new Path(args[1] + 2));
-		FileOutputFormat.setOutputPath(job3, new Path(args[1] + 3));
+		FileInputFormat.addInputPath(job3, new Path(args[1] + "2"));
+		FileOutputFormat.setOutputPath(job3, new Path(args[1] + "3"));
 		job3.waitForCompletion(true);
 		
 		// Calculate TF-IDF
@@ -78,8 +78,8 @@ public class TFIDFDriver extends Configured implements Tool
 		job4.setReducerClass(TFIDFReducer.class);
 		job4.setOutputKeyClass(Text.class);
 		job4.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job4, new Path(args[1] + 3));
-		FileOutputFormat.setOutputPath(job4, new Path(args[1] + 4));
+		FileInputFormat.addInputPath(job4, new Path(args[1] + "3"));
+		FileOutputFormat.setOutputPath(job4, new Path(args[1] + "4"));
 		job4.waitForCompletion(true);
 		
 		return 0;

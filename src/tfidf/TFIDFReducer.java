@@ -37,9 +37,9 @@ public class TFIDFReducer extends Reducer<Text,Text,Text,Text>
 			author_tfidf += author + "_" + tfidf + ",";
 		}
 		
-		Text keyString = new Text(key + "_" + idf);
-		result.set(author_tfidf);
-		context.write(keyString,result);
+		//Text keyString = new Text(key + "_" + idf);
+		result.set(idf + "***" + author_tfidf);
+		context.write(key,result);
 		
 	}
 }
