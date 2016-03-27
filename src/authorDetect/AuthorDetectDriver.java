@@ -5,7 +5,6 @@ import org.apache.hadoop.conf.Configured;
 import org.apache.hadoop.fs.Path;
 import org.apache.hadoop.io.DoubleWritable;
 import org.apache.hadoop.io.IntWritable;
-import org.apache.hadoop.io.NullWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Job;
 import org.apache.hadoop.mapreduce.lib.input.FileInputFormat;
@@ -27,7 +26,7 @@ public class AuthorDetectDriver extends Configured implements Tool
 	}
 	
 	public int run(String[] args) throws Exception 
-	{/*
+	{
 		// Get the term frequency for the unknown file
 		
 		Configuration conf1 = new Configuration();
@@ -82,7 +81,7 @@ public class AuthorDetectDriver extends Configured implements Tool
 		FileInputFormat.addInputPath(job4, new Path("AD/" + args[1] + "7"));
 		FileOutputFormat.setOutputPath(job4, new Path("AD/" + args[1] + "8"));
 		job4.waitForCompletion(true);
-		*/
+		
 		// Select Top 10
 
 		Configuration conf5 = new Configuration();
@@ -90,9 +89,9 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job5.setNumReduceTasks(1);
 		job5.setJarByClass(AuthorDetectDriver.class);
 		job5.setMapperClass(ADTop10Mapper.class);
-		//job5.setCombinerClass(ADTop10Reducer.class);
-		//job5.setReducerClass(ADTop10Reducer.class);
-		job5.setOutputKeyClass(NullWritable.class);
+		job5.setCombinerClass(ADTop10Reducer.class);
+		job5.setReducerClass(ADTop10Reducer.class);
+		job5.setOutputKeyClass(DoubleWritable.class);
 		job5.setOutputValueClass(Text.class);
 		FileInputFormat.addInputPath(job5, new Path("AD/" + args[1] + "8"));
 		FileOutputFormat.setOutputPath(job5, new Path("AD/" + args[1] + "9"));

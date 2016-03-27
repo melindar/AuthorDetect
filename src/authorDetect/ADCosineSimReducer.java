@@ -15,6 +15,7 @@ public class ADCosineSimReducer extends Reducer<Text,Text,Text,DoubleWritable>
 		double denominator = 0.0;
 		double aSquareds = 0.0;
 		double bSquareds = 0.0;
+		double cosSim = 0.0;
 		
 		for(Text value:values)
 		{
@@ -31,7 +32,8 @@ public class ADCosineSimReducer extends Reducer<Text,Text,Text,DoubleWritable>
 		}
 		
 		denominator = (Math.sqrt(aSquareds)) * (Math.sqrt(bSquareds));
-		double cosSim = numerator / denominator;
+		if(denominator > 0)
+			cosSim = numerator / denominator;
 		
 		DoubleWritable val = new DoubleWritable(cosSim);
 		context.write(key, val);
