@@ -34,12 +34,12 @@ public class TFIDFReducer extends Reducer<Text,Text,Text,Text>
 			String numString = halfLine[1].trim();
 			double tf = Double.parseDouble(numString);
 			double tfidf = tf * idf;
-			author_tfidf += author + "_" + tfidf + ",";
+			author_tfidf += author + "_" + tfidf + "$";
 		}
 		
-		//Text keyString = new Text(key + "_" + idf);
-		result.set(idf + "***" + author_tfidf);
-		context.write(key,result);
+		Text keyString = new Text(key + ":");
+		result.set(idf + "***$" + author_tfidf);
+		context.write(keyString,result);
 		
 	}
 }

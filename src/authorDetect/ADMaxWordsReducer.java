@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Reducer;
 
-public class MaxWordsReducer extends Reducer<Text,Text,Text,Text> 
+public class ADMaxWordsReducer extends Reducer<Text,Text,Text,Text> 
 {  
 
 	Text result = new Text();
@@ -22,7 +22,7 @@ public class MaxWordsReducer extends Reducer<Text,Text,Text,Text>
 			lines.add(line);
 			String[] halfLine = line.split("=");
 			//String word = halfLine[0];
-			int count = Integer.parseInt( halfLine[1]);
+			int count = Integer.parseInt(halfLine[1]);
 			
 			if(count > max)
 				max = count;
@@ -33,9 +33,9 @@ public class MaxWordsReducer extends Reducer<Text,Text,Text,Text>
 			String[] halfLine = line.split("=");
 			String word = halfLine[0];
 			int count = Integer.parseInt( halfLine[1]);
-			Text keystring = new Text(word);
+			Text keystring = new Text(word + ":");
 			double fraction = (double)count / (double)max;
-			result.set("@@@" + fraction);
+			result.set("@@@" + fraction + "$");
 			context.write(keystring, result);
 		}
 		

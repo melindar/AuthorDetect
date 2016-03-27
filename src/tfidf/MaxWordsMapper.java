@@ -12,7 +12,7 @@ public class MaxWordsMapper extends Mapper<Object, Text, Text, Text>
 	{
 		String line = value.toString().trim();
 		String letters = line.substring(0,getLetterIndex(line));
-		String numbers = line.substring(getNumberIndex(line));
+		String numbers = line.substring(getLetterIndex(line));
 		
 		System.out.println("\n\n\n\n**************************\n" + line + "\n**************************\n\n\n\n");
 		
@@ -27,16 +27,6 @@ public class MaxWordsMapper extends Mapper<Object, Text, Text, Text>
 		keyString.set(author);	
 		context.write(keyString, val);
 		
-	}
-	
-	private int getNumberIndex(String s)
-	{
-		int i = s.length();
-	    while (i > 0 && Character.isDigit(s.charAt(i - 1))) 
-	    {
-	        i--;
-	    }
-	    return i;
 	}
 	
 	private int getLetterIndex(String s)

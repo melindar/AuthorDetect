@@ -8,7 +8,7 @@ import org.apache.hadoop.io.IntWritable;
 import org.apache.hadoop.io.Text;
 import org.apache.hadoop.mapreduce.Mapper;
 
-public class FrequencyMapper extends Mapper<Object, Text, Text, IntWritable> 
+public class ADFrequencyMapper extends Mapper<Object, Text, Text, IntWritable> 
 {
 	private Text keyString = new Text();
 	private final static IntWritable one = new IntWritable(1);
