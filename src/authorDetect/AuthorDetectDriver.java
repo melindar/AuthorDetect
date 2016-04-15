@@ -38,7 +38,7 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job1.setOutputKeyClass(Text.class);
 		job1.setOutputValueClass(IntWritable.class);
 		FileInputFormat.addInputPath(job1, new Path(args[0]));
-		FileOutputFormat.setOutputPath(job1, new Path("AD/" + args[1] + "5"));
+		FileOutputFormat.setOutputPath(job1, new Path(args[1] + "/AD/" + "5"));
 		job1.waitForCompletion(true);
 		
 		
@@ -51,8 +51,8 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job2.setReducerClass(ADMaxWordsReducer.class);
 		job2.setOutputKeyClass(Text.class);
 		job2.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job2, new Path("AD/" + args[1] + "5"));
-		FileOutputFormat.setOutputPath(job2, new Path("AD/" + args[1] + "6"));
+		FileInputFormat.addInputPath(job2, new Path(args[1]+ "/AD/" +  "5"));
+		FileOutputFormat.setOutputPath(job2, new Path(args[1] + "/AD/" + "6"));
 		job2.waitForCompletion(true);
 		
 		// Combine offline and command line tfidf
@@ -64,9 +64,9 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job3.setReducerClass(ADGroupingReducer.class);
 		job3.setOutputKeyClass(Text.class);
 		job3.setOutputValueClass(Text.class);
-		MultipleInputs.addInputPath(job3, new Path("tfidf/" + args[1] + "4"), TextInputFormat.class, ADGroupingMapper.class);
-		MultipleInputs.addInputPath(job3, new Path("AD/" + args[1] + "6"), TextInputFormat.class, ADGroupingMapper.class);
-		FileOutputFormat.setOutputPath(job3, new Path("AD/" + args[1] + "7"));
+		MultipleInputs.addInputPath(job3, new Path(args[1] +"/tfidf/" +  "4"), TextInputFormat.class, ADGroupingMapper.class);
+		MultipleInputs.addInputPath(job3, new Path(args[1] + "/AD/" + "6"), TextInputFormat.class, ADGroupingMapper.class);
+		FileOutputFormat.setOutputPath(job3, new Path(args[1] + "/AD/" + "7"));
 		job3.waitForCompletion(true);
 
 		// Calculate TF-IDF
@@ -78,8 +78,8 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job4.setReducerClass(ADCosineSimReducer.class);
 		job4.setOutputKeyClass(Text.class);
 		job4.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job4, new Path("AD/" + args[1] + "7"));
-		FileOutputFormat.setOutputPath(job4, new Path("AD/" + args[1] + "8"));
+		FileInputFormat.addInputPath(job4, new Path(args[1] + "/AD/" + "7"));
+		FileOutputFormat.setOutputPath(job4, new Path(args[1] + "/AD/" + "8"));
 		job4.waitForCompletion(true);
 		
 		// Select Top 10
@@ -93,8 +93,8 @@ public class AuthorDetectDriver extends Configured implements Tool
 		job5.setReducerClass(ADTop10Reducer.class);
 		job5.setOutputKeyClass(DoubleWritable.class);
 		job5.setOutputValueClass(Text.class);
-		FileInputFormat.addInputPath(job5, new Path("AD/" + args[1] + "8"));
-		FileOutputFormat.setOutputPath(job5, new Path("AD/" + args[1] + "9"));
+		FileInputFormat.addInputPath(job5, new Path(args[1] + "/AD/" + "8"));
+		FileOutputFormat.setOutputPath(job5, new Path(args[1] + "/AD/" + "9"));
 		job5.waitForCompletion(true);
 				
 		
